@@ -6,11 +6,12 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 19:04:26 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/09 22:02:57 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/11 16:03:57 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stack.h"
+#include <stdlib.h>
 #include <stdio.h>
 
 int	main(int argc, char *argv[])
@@ -27,10 +28,11 @@ int	main(int argc, char *argv[])
 	// sort the numbers using these two stacks 	
 	int i;
 
-	t_stack stack_a = malloc(sizeof(t_stack));
+	t_stack *stack_a = malloc(sizeof(t_stack));
 	i = argc - 1;
 	while (i)
 	{
+		t_stk_nd node = NULL;
 		stck_add(&ft_atoi(argv[i]), stack_a), 					
 		i--;
 	}	
