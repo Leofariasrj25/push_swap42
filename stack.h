@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 19:17:24 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/11 19:23:56 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/14 21:50:59 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ typedef struct s_stack
 
 t_stk_nd	*create_stk_node(void *element);
 void		stck_add(t_stk_nd *new_node, t_stack *stk);
-void		*stck_pop(t_stack *stk);
+t_stk_nd	*stack_pop(t_stack *stk);
 void		clean_stack(t_stack *stk);
 # endif

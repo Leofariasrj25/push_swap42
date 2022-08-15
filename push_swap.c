@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 19:04:26 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/11 16:03:57 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/14 22:25:46 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,51 @@ int	main(int argc, char *argv[])
 	int i;
 
 	t_stack *stack_a = malloc(sizeof(t_stack));
+	stack_a->top_node = NULL;
+	stack_a->bottom_node = NULL;
 	i = argc - 1;
 	while (i)
 	{
-		t_stk_nd node = NULL;
-		stck_add(&ft_atoi(argv[i]), stack_a), 					
+		t_stk_nd *node = NULL;
+		node = create_stk_node(argv[i]);
+		stck_add(node, stack_a);
+		printf("top_node = %s \n", (char *)	stack_a->top_node->content);
+		printf("bottom_node = %s \n", (char *) stack_a->bottom_node->content);
 		i--;
 	}	
 	//printing to see if this shit works
-	t_node curr_elemen = stck_pop(stack_a);
+	t_stk_nd *curr_elemen = stack_pop(stack_a);
 	while (curr_elemen != NULL)
 	{
-		printf("%d ", curr_elemen->content);
-		t_node curr_elemen = stck_pop(stack_a);
+		printf("%s\n", (char *) curr_elemen->content);
+		if (stack_a->top_node == NULL && stack_a->bottom_node == NULL)
+			break;
+		//printf("top_node = %s \n", (char *)	stack_a->top_node->content);
+		//printf("bottom_node = %s \n", (char *) stack_a->bottom_node->content);
+		curr_elemen = stack_pop(stack_a);
 	}
+	// BUBBLE SORT LOGIC
+	t_stack *stack_b = malloc(sizeof(t_stack));
+	int	is_stka_sort = 0;
+	int is_stkb_sort = 0;
+	while (!is_stka_sort)
+	{
+		
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

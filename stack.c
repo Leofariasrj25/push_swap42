@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:03:26 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/11 16:26:41 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/14 21:40:48 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,43 @@ void	stck_add(t_stk_nd *new_node, t_stack *stk)
 	while (c_node->next)
 		c_node = c_node->next;
 	stk->top_node = c_node;
+}
+
+t_stk_nd	*stack_pop(t_stack *stk)
+{
+	// what happens if the stk is null?
+	//	NULL should be returned 
+	// what happens if the stk is empty?
+	//	No operations should be done, NULL is returned
+	// what happens if the poped element is the last element of the stk?
+	//	the stk, top and bottom node should point to null
+	// algo
+	// access the stk top node
+	// store the address value of the top node on an auxialiary var
+	// update stack top_node to be the previous node.
+	// update the new top_node next to be null
+	// update the popped nod to point to NULL on previous and next attributes
+	
+	t_stk_nd *pop_node;
+
+	if (!stk)
+		return (NULL);
+	if (!(stk->top_node) && !(stk->bottom_node))
+		return (NULL);
+	if (stk->top_node == stk->bottom_node)
+	{
+		pop_node = stk->top_node;
+		stk->top_node = NULL;
+		stk->bottom_node = NULL;
+		return (pop_node);
+	}
+	pop_node = stk->top_node;
+	stk->top_node = pop_node->previous;
+	stk->top_node->next = NULL;
+	pop_node->previous = NULL;	
+	//if (stack_len(stk) == 1)
+		//stk->bottom_node = stk->top_node;
+	return(pop_node);	
 }
 
 
