@@ -6,14 +6,14 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:03:26 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/17 15:32:16 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/17 17:00:14 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stack.h"
 #include <stdlib.h>
 
-t_stk_nd *create_stk_node(void *element)
+t_stk_nd *stk_create_node(void *element)
 {
 	t_stk_nd	*new_node;
 
@@ -60,7 +60,7 @@ void	stk_add(t_stk_nd *new_node, t_stk *stk)
 	stk->top_node = c_node;
 }
 
-t_stk_nd	*stack_pop(t_stk *stk)
+t_stk_nd	*stk_pop(t_stk *stk)
 {
 	// what happens if the stk is null?
 	//	NULL should be returned 

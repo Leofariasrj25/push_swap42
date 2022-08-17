@@ -7,7 +7,7 @@ T_MAIN = test_main.c
 
 push_swap:
 	make -C $(LIBFT_DIR) libft.a
-	$(CC) $(CFLAGS) -g -I. stack.c push_swap.c $(LIBFT_DIR)libft.a -o push_swap
+	$(CC) $(CFLAGS) -g -I. stack.c bubblesort.c push_swap.c $(LIBFT_DIR)libft.a -o push_swap
 
 all: push_swap
 
