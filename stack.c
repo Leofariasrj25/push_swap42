@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:03:26 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/14 21:40:48 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/17 15:32:16 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_stk_nd *create_stk_node(void *element)
 	return (new_node);
 }
 
-void	stck_add(t_stk_nd *new_node, t_stack *stk)
+void	stk_add(t_stk_nd *new_node, t_stk *stk)
 {
 	//	what happens if stk is null?
 	//NULL should be returned 
@@ -60,7 +60,7 @@ void	stck_add(t_stk_nd *new_node, t_stack *stk)
 	stk->top_node = c_node;
 }
 
-t_stk_nd	*stack_pop(t_stack *stk)
+t_stk_nd	*stack_pop(t_stk *stk)
 {
 	// what happens if the stk is null?
 	//	NULL should be returned 
@@ -95,6 +95,23 @@ t_stk_nd	*stack_pop(t_stack *stk)
 	//if (stack_len(stk) == 1)
 		//stk->bottom_node = stk->top_node;
 	return(pop_node);	
+}
+
+void	stk_swap(t_stk *stack)
+{
+	// don't let the stk do this if it's empty
+	// or has only one element
+	//
+	// swp the top elements with its previous element
+	// ERROR TREATMENT
+	
+	t_stk_nd *top_node;
+	t_stk_nd *previous_node;
+	
+	top_node = stk_pop(stack);
+	previous_node = stk_pop(stack);
+	stk_add(top_node, stack);
+	stk_add(previous_node, stack);
 }
 
 
