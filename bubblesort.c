@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 13:38:22 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/17 18:11:52 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:40:19 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,14 @@ void	bubble_sort(t_stk *stack_a)
 {
 	t_stk *stack_b;
 	int		is_stack_a_sort;
-	int		is_stack_b_sort;
 	int		num_a;
 	int		num_b;
 
 	is_stack_a_sort = 0;
-	is_stack_b_sort = 0;
 	stack_b = malloc(sizeof(t_stk));
 	while(!is_stack_a_sort)
 	{
-		if (stack_a->top_node == NULL & stack_a->bottom_node == NULL)
+		if (stack_a->top_node == NULL && stack_a->bottom_node == NULL)
 			break ;
 		if (stack_a->top_node == stack_a->bottom_node)
 		{
