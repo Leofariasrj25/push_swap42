@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:03:26 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/17 17:00:14 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/20 22:49:49 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,6 @@ t_stk_nd *stk_create_node(void *element)
 
 void	stk_add(t_stk_nd *new_node, t_stk *stk)
 {
-	//	what happens if stk is null?
-	//NULL should be returned 
-	//	what happens if new_node is null?
-	//No operations on stack and return NULL
-	//	what happens if stk is empty?
-	//the new node should be the top node
-	// what happens if the new node already points to a new element
-	// that element should be the top of the stack
 	t_stk_nd *c_node;
 
 	c_node = NULL;
@@ -48,7 +40,11 @@ void	stk_add(t_stk_nd *new_node, t_stk *stk)
 		stk->bottom_node = new_node;
 		c_node = new_node;
 		while (c_node->next)
+		{
 			c_node = c_node->next;
+			stk->size = stk->size + 1;
+		}
+		stk->size = stk->size + 1;
 		stk->top_node = c_node;
 		return ;
 	}
@@ -56,25 +52,16 @@ void	stk_add(t_stk_nd *new_node, t_stk *stk)
 	new_node->previous = stk->top_node;
 	c_node = new_node;
 	while (c_node->next)
+	{
 		c_node = c_node->next;
+		stk->size = stk->size + 1;
+	}
+	stk->size = stk->size + 1;
 	stk->top_node = c_node;
 }
 
 t_stk_nd	*stk_pop(t_stk *stk)
 {
-	// what happens if the stk is null?
-	//	NULL should be returned 
-	// what happens if the stk is empty?
-	//	No operations should be done, NULL is returned
-	// what happens if the poped element is the last element of the stk?
-	//	the stk, top and bottom node should point to null
-	// algo
-	// access the stk top node
-	// store the address value of the top node on an auxialiary var
-	// update stack top_node to be the previous node.
-	// update the new top_node next to be null
-	// update the popped nod to point to NULL on previous and next attributes
-	
 	t_stk_nd *pop_node;
 
 	if (!stk)
@@ -86,32 +73,86 @@ t_stk_nd	*stk_pop(t_stk *stk)
 		pop_node = stk->top_node;
 		stk->top_node = NULL;
 		stk->bottom_node = NULL;
+		stk->size = stk->size - 1;
 		return (pop_node);
 	}
 	pop_node = stk->top_node;
 	stk->top_node = pop_node->previous;
 	stk->top_node->next = NULL;
 	pop_node->previous = NULL;	
-	//if (stack_len(stk) == 1)
-		//stk->bottom_node = stk->top_node;
+	stk->size = stk->size - 1;
 	return(pop_node);	
 }
 
+// sa, sb
 void	stk_swap(t_stk *stack)
 {
-	// don't let the stk do this if it's empty
-	// or has only one element
-	//
-	// swp the top elements with its previous element
-	// ERROR TREATMENT
-	
 	t_stk_nd *top_node;
 	t_stk_nd *previous_node;
 	
+	if (stack->top_node == stack->bottom_node)
+		return ;
 	top_node = stk_pop(stack);
 	previous_node = stk_pop(stack);
 	stk_add(top_node, stack);
 	stk_add(previous_node, stack);
 }
 
+/*static t_stk_nd	*stk_pop_bottom(t_stk *stack)
+{
+	
+	t_stk_nd	*bottom_node;
+	t_stk_nd	*second_to_bottom;
 
+	if (!stack || (stack->top_node == NULL && stack->bottom_node == NULL))
+		return (NULL);
+	if (stack->size == 1)
+		return (stk_pop(stack));
+	bottom_node = stack->bottom_node;
+	stack->bottom_node = bottom_node->next;
+	stack->bottom_node->previous = NULL;
+	bottom_node->next = NULL;
+	bottom_node->previous = NULL;
+	return (bottom_node);	
+}*/
+
+// ra, rb
+void 	stk_rot_up(t_stk *stack)
+{
+	t_stk_nd	*popped_node;
+
+	if (!stack || stack->size <= 1)
+		return ;
+	if (stack->size == 2)
+	{
+		stk_swap(stack);
+		return ;
+	}
+	popped_node = stk_pop(stack);	
+	stack->bottom_node->previous = popped_node;
+	popped_node->next = stack->bottom_node;
+	popped_node->previous = NULL;
+	stack->bottom_node = popped_node;
+	stack->size = stack->size + 1;
+}
+
+// rra, rrb
+void	stk_rot_down(t_stk *stack)
+{
+	t_stk_nd	*bottom_node;
+
+	if (!stack || stack->size <= 1)
+		return ;
+	if (stack->size == 2)
+	{
+		stk_swap(stack);
+		return ;
+	}
+	bottom_node = stack->bottom_node;
+	stack->bottom_node = stack->bottom_node->next;
+	stack->bottom_node->previous = NULL;
+	bottom_node->next = NULL;
+	bottom_node->previous = NULL;
+	stack->size = stack->size - 1;
+	stk_add(bottom_node, stack);
+}
