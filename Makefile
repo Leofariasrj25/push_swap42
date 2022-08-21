@@ -1,25 +1,31 @@
-SRC = push_swap.c \
-	 stack.c 
+NAME = push_swap
+SRC	=	push_swap.c \
+	 	stack.c \
+	 	stack_utils.c \
+	 	bubblesort.c
 LIBFT_DIR = ./libft/
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 T_MAIN = test_main.c
 
-push_swap:
+$(NAME):
 	make -C $(LIBFT_DIR) libft.a
-	$(CC) $(CFLAGS) -g -I. stack.c bubblesort.c push_swap.c $(LIBFT_DIR)libft.a -o push_swap
+	$(CC) $(CFLAGS) -g -I. $(SRC) $(LIBFT_DIR)libft.a -o $(NAME)
+	cp $(NAME) ./visualizer/
+	./visualizer/visualizer
 
-all: push_swap
+all: $(NAME)
 
 clean:
 	rm -f push_swap
 	
-re:
-	clean
-	push_swap
+re: clean $(NAME)
+
 test:
 	make -C $(LIBFT_DIR) libft.a
-	$(CC) $(CFLAGS) -I. stack.c test_main.c $(LIBFT_DIR)libft.a -o test
+	$(CC) $(CFLAGS) -I. stack.c stack_utils.c test_main.c $(LIBFT_DIR)libft.a -o test
 
 tclean:
 	rm -f ./test
+
+tre: tclean test

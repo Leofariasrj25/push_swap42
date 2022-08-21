@@ -6,27 +6,12 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:03:26 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/20 22:49:49 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/21 12:02:39 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stack.h"
 #include <stdlib.h>
-
-t_stk_nd *stk_create_node(void *element)
-{
-	t_stk_nd	*new_node;
-
-	if (!element)
-		return (NULL);
-	new_node = malloc(sizeof(t_stk_nd));
-	if (!new_node)
-		return (NULL);
-	new_node->next = NULL;
-	new_node->previous = NULL;
-	new_node->content = element;
-	return (new_node);
-}
 
 void	stk_add(t_stk_nd *new_node, t_stk *stk)
 {
@@ -97,24 +82,6 @@ void	stk_swap(t_stk *stack)
 	stk_add(top_node, stack);
 	stk_add(previous_node, stack);
 }
-
-/*static t_stk_nd	*stk_pop_bottom(t_stk *stack)
-{
-	
-	t_stk_nd	*bottom_node;
-	t_stk_nd	*second_to_bottom;
-
-	if (!stack || (stack->top_node == NULL && stack->bottom_node == NULL))
-		return (NULL);
-	if (stack->size == 1)
-		return (stk_pop(stack));
-	bottom_node = stack->bottom_node;
-	stack->bottom_node = bottom_node->next;
-	stack->bottom_node->previous = NULL;
-	bottom_node->next = NULL;
-	bottom_node->previous = NULL;
-	return (bottom_node);	
-}*/
 
 // ra, rb
 void 	stk_rot_up(t_stk *stack)

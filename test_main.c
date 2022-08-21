@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:31:34 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/20 23:25:20 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/21 12:11:06 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ void	stk_add_test()
 	test_stk = malloc(sizeof(t_stk));
 	test_stk->top_node = NULL;
 	test_stk->bottom_node = NULL;
-	t_stk_nd *node = stk_create_node(ft_strdup("Item 1"));
+	t_stk_nd *node = stk_new_node(ft_strdup("Item 1"));
 	stk_add(node, test_stk);
-	node = stk_create_node(ft_strdup("Item 2"));
+	node = stk_new_node(ft_strdup("Item 2"));
 	stk_add(node, test_stk);
-	node = stk_create_node(ft_strdup("Item 3"));
+	node = stk_new_node(ft_strdup("Item 3"));
 	stk_add(node, test_stk);
 	c_node = test_stk->bottom_node;
 	printf("> from bottom to top:\n");
@@ -75,9 +75,9 @@ void	stk_add_test()
 
 	printf("\n > Add a valid NODE on a NULL stack\n");
 	printf("Non guarded code should provoke seg-fault\n");
-	c_node = stk_create_node(ft_strdup("Search and Destroy\n"));
+	c_node = stk_new_node(ft_strdup("Search and Destroy\n"));
 	stk_add(c_node, NULL);
-	c_node = stk_create_node(ft_strdup("Master of Puppets\n"));
+	c_node = stk_new_node(ft_strdup("Master of Puppets\n"));
 	stk_add(c_node, NULL);
 	printf("If it reached here then everything is ok!\n");
 
@@ -85,15 +85,15 @@ void	stk_add_test()
 
 }
 	
-void	stk_create_node_test()
+void	stk_new_node_test()
 {
 	// test 1
-	// stk_create_node should return false
+	// stk_new_node should return false
 	// for a NULL element
-	printf(">>> stk_create_node_test \n");
+	printf(">>> stk_new_node_test \n");
 	printf(">NULL arg:\n");
 	void *element = NULL;
-	t_stk_nd *new_node = stk_create_node(element);
+	t_stk_nd *new_node = stk_new_node(element);
 	if (!new_node)
 		printf("OK - expected: 0x0 - result: %p \n", new_node);
 	else
@@ -102,7 +102,7 @@ void	stk_create_node_test()
 	// test 1
 	printf("\n>new node next_node and previous_nodes fields should be empty\n");
 	char *baby = "don't hurt me!";
-	new_node = stk_create_node(baby);
+	new_node = stk_new_node(baby);
 	printf("next_node - expected: 0x0 - got: %p\n", new_node->next);
 	printf("previous_node - expected: 0x0 - got: %p\n", new_node->previous);
 	free(new_node);
@@ -110,7 +110,7 @@ void	stk_create_node_test()
 	// test 2
 	printf("\n>check if node points to the right content of address\n");
 	char *chocolate = ft_strdup("dakedo chokoreto chokoreto");
-	new_node = stk_create_node(chocolate);
+	new_node = stk_new_node(chocolate);
 	printf("string: %p: %s\n", chocolate, chocolate);
 	printf("node's content: %p: %s\n", new_node->content, (char *) new_node->content);
 	free(chocolate);
@@ -137,7 +137,7 @@ void	stk_rot_up_test()
 	 
 	// test 3
 	printf("\n---Rotate up with 1 (one) element---\n");
-	t_stk_nd *node = stk_create_node(ft_strdup("Item 1"));
+	t_stk_nd *node = stk_new_node(ft_strdup("Item 1"));
 	stk_add(node, test_stack);
 	printf("Before rotate up\n");
 	print_stack(test_stack);
@@ -149,7 +149,7 @@ void	stk_rot_up_test()
 	// test 4
 	printf("\n---Rotate up with 2 (two) elements---\n");
 	printf("Adding 'Item 2' to stack\n");
-	node = stk_create_node(ft_strdup("Item 2"));
+	node = stk_new_node(ft_strdup("Item 2"));
 	stk_add(node, test_stack);
 	printf("Before rotate up\n");
 	print_stack(test_stack);
@@ -161,19 +161,19 @@ void	stk_rot_up_test()
 	printf("\n---Rotate up with 6 elements ---\n");
 	stk_swap(test_stack);
 	printf("Adding 'Item 3' to stack\n");
-	node = stk_create_node(ft_strdup("Item 3"));
+	node = stk_new_node(ft_strdup("Item 3"));
 	stk_add(node, test_stack);
 
 	printf("Adding 'Item 4' to stack\n");
-	node = stk_create_node(ft_strdup("Item 4"));
+	node = stk_new_node(ft_strdup("Item 4"));
 	stk_add(node, test_stack);
 
 	printf("Adding 'Item 5' to stack\n");
-	node = stk_create_node(ft_strdup("Item 5"));
+	node = stk_new_node(ft_strdup("Item 5"));
 	stk_add(node, test_stack);
 
 	printf("Adding 'Item 6' to stack\n");
-	node = stk_create_node(ft_strdup("Item 6"));
+	node = stk_new_node(ft_strdup("Item 6"));
 	stk_add(node, test_stack);
 
 	printf("Before rotate up\n");
@@ -211,7 +211,7 @@ void	stk_rot_down_test()
 	 
 	// test 3
 	printf("\n---Rotate down with 1 (one) element---\n");
-	t_stk_nd *node = stk_create_node(ft_strdup("Item 1"));
+	t_stk_nd *node = stk_new_node(ft_strdup("Item 1"));
 	stk_add(node, test_stack);
 	printf("Before rotate down\n");
 	print_stack(test_stack);
@@ -225,7 +225,7 @@ void	stk_rot_down_test()
 	// test 4
 	printf("\n---Rotate down with 2 (two) elements---\n");
 	printf("Adding 'Item 2' to stack\n");
-	node = stk_create_node(ft_strdup("Item 2"));
+	node = stk_new_node(ft_strdup("Item 2"));
 	stk_add(node, test_stack);
 	printf("Before rotate down\n");
 	print_stack(test_stack);
@@ -239,19 +239,19 @@ void	stk_rot_down_test()
 	printf("\n---Rotate down with 6 elements ---\n");
 	stk_swap(test_stack);
 	printf("Adding 'Item 3' to stack\n");
-	node = stk_create_node(ft_strdup("Item 3"));
+	node = stk_new_node(ft_strdup("Item 3"));
 	stk_add(node, test_stack);
 
 	printf("Adding 'Item 4' to stack\n");
-	node = stk_create_node(ft_strdup("Item 4"));
+	node = stk_new_node(ft_strdup("Item 4"));
 	stk_add(node, test_stack);
 
 	printf("Adding 'Item 5' to stack\n");
-	node = stk_create_node(ft_strdup("Item 5"));
+	node = stk_new_node(ft_strdup("Item 5"));
 	stk_add(node, test_stack);
 
 	printf("Adding 'Item 6' to stack\n");
-	node = stk_create_node(ft_strdup("Item 6"));
+	node = stk_new_node(ft_strdup("Item 6"));
 	stk_add(node, test_stack);
 
 	printf("Before rotate down\n");
@@ -278,8 +278,8 @@ void	stk_pop_test()
 	test_stack->top_node = NULL;
 	test_stack->bottom_node = NULL;
 	test_stack->size = 0;
-
-	t_stk_nd *node = stk_create_node(ft_strdup("Item 1"));
+	stk_pop(test_stack);
+	t_stk_nd *node = stk_new_node(ft_strdup("Item 1"));
 	stk_add(node, test_stack);
 	printf("-before stk_pop\n");
 	print_stack(test_stack);	
@@ -291,7 +291,7 @@ void	stk_pop_test()
 int	main(void)
 {
 	printf("=== UNIT TESTS ===\n");
-	stk_create_node_test();
+	stk_new_node_test();
 	stk_add_test();
 	stk_pop_test();
 	stk_rot_up_test();	

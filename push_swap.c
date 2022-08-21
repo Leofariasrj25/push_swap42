@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 19:04:26 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/17 16:57:41 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/21 12:24:03 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char *argv[])
 		t_stk_nd *node = NULL;
 		int *n = malloc(sizeof(int));
 		*n = ft_atoi(argv[i]);
-		node = stk_create_node(n);
+		node = stk_new_node(n);
 		stk_add(node, stack_a);
 		//printf("top_node = %s \n", (char *)	stack_a->top_node->content);
 		//printf("bottom_node = %s \n", (char *) stack_a->bottom_node->content);
