@@ -2,7 +2,7 @@ NAME = push_swap
 SRC	=	push_swap.c \
 	 	stack.c \
 	 	stack_utils.c \
-	 	bubblesort.c
+		merge_sort.c
 LIBFT_DIR = ./libft/
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
