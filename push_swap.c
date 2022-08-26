@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 19:04:26 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/26 10:15:46 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/26 10:21:30 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,17 @@ int		is_chunk_sent(int *range, int start, int end)
 
 void	send_chunks_to(t_stk *stk_b, t_stk *stk_a, int *val_list, int stack_size)
 {
-	int	n;
+	int	*number_sent;
 	int	middle;
 	int	offset;
 	int	start;
 	int	end;
 
-	n = get_const(stack_size);
 	middle = stack_size / 2;
-	offset = stack_size / n;
-	int *number_sent = ft_calloc(stk_a->size, sizeof(int));
+	offset = stack_size / get_const(stack_size);
 	start = middle - offset;
 	end = middle + offset;
+	number_sent = ft_calloc(stk_a->size, sizeof(int));
 	while (((int) stk_a->size))
 	{
 		while (!is_chunk_sent(number_sent, start, end) && stk_a->size)
@@ -92,6 +91,7 @@ void	send_chunks_to(t_stk *stk_b, t_stk *stk_a, int *val_list, int stack_size)
 		start = start - offset;
 		end = end + offset;
 	}
+	free(number_sent);
 }
 
 int	find_next_big(t_stk *stk, int *val_list, int previous_number, int stack_size)
