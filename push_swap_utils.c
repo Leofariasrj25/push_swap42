@@ -6,11 +6,11 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 10:04:11 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/26 10:07:34 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/26 11:17:57 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.c"
+#include "push_swap.h"
 
 int	get_const(int stack_size)
 {

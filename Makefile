@@ -1,5 +1,6 @@
 NAME = push_swap
 SRC	=	push_swap.c \
+		push_swap_utils.c \
 	 	stack.c \
 	 	stack_utils.c \
 		merge_sort.c

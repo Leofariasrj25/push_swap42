@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 19:04:26 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/26 10:21:30 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/26 20:43:40 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	send_chunks_to(t_stk *stk_b, t_stk *stk_a, int *val_list, int stack_size)
 	offset = stack_size / get_const(stack_size);
 	start = middle - offset;
 	end = middle + offset;
-	number_sent = ft_calloc(stk_a->size, sizeof(int));
-	while (((int) stk_a->size))
+	number_sent = ft_calloc(stack_size, sizeof(int));
+	while (stk_a->size)
 	{
 		while (!is_chunk_sent(number_sent, start, end) && stk_a->size)
 		{
@@ -68,7 +68,6 @@ void	send_chunks_to(t_stk *stk_b, t_stk *stk_a, int *val_list, int stack_size)
 			int n_index = is_in_range(number, start, end, val_list);
 			if (n_index != -1 && number_sent[n_index] != 1)
 			{
-				//printf("n_index: %d\n", n_index);
 				number_sent[n_index] = 1;
 				stk_add(stk_pop(stk_a), stk_b);
 				printf("pb\n");
@@ -80,10 +79,6 @@ void	send_chunks_to(t_stk *stk_b, t_stk *stk_a, int *val_list, int stack_size)
 			}
 			else
 			{
-				/*printf("stack size: %d\n", stk_a->size);
-				printf("number is: %d\n", number);
-				printf("start: %d\n", start);
-				printf("end: %d\n", end);*/
 				stk_rot_up(stk_a);
 				printf("ra\n");
 			}
@@ -94,58 +89,101 @@ void	send_chunks_to(t_stk *stk_b, t_stk *stk_a, int *val_list, int stack_size)
 	free(number_sent);
 }
 
-int	find_next_big(t_stk *stk, int *val_list, int previous_number, int stack_size)
+int	is_on_stack(t_stk *stk, int value)
 {
-	int pnum_i;
-	int	next_biggest;
-	int	next_biggest_i;
 	t_stk_nd	*node;
-	int	i;
+	int			number;
+	int			i;
 
-	i = 0;
-	while(i < stack_size)
-	{
-		if (val_list[i] == previous_number)
-			break ;
-		i++;
-	}
-	if (i < (stack_size - 2))
-		next_biggest = val_list[i + 1];
 	node = stk->top_node;
-	next_biggest_i = 0;
+	number = 0;
+	i = 0;
 	while(node)
 	{
-		if (next_biggest == *((int *) node->content))
-			return (next_biggest_i);
-		next_biggest_i++;
-		node = node->next;
+		number = *((int *) node->content);
+		if (number == value)
+			return (i);
+		i++;
+		node = node->previous;
 	}
 	return (-1);
 }
 
-void get_chunks_from(t_stk *stk_b, t_stk  *stk_a, int *val_list, int stack_size)
+void get_chunks_from(t_stk *stk_b, t_stk *stk_a, int *val_list, int stack_size)
 {
 	int	nbig;
-	int nbig_i;
-	
-	if (stk_a->size == 0)
+	int	nbig_i;
+	int	i;
+	int down;
+
+	//get the next biggest number, see if it's in stack-b
+	//if true, check if its on top of stack-b
+	// if above true push it to stack_a
+	//if not check if top of stack-b is greater than tail of stack-a OR down = 0
+	//if not, calculate, based on the stack size if its better to rotate up or rotate down
+	// the next biggest number is always the index of prev_num + 1;
+	down = 0;	
+	i = stack_size - 1;
+	while (stk_b->size || down == 0)
 	{
-		printf("");
+		if (stk_b->size != 0 && i >= 0)
+			nbig = val_list[i]; 
+		nbig_i = is_on_stack(stk_b, nbig);
+		if (nbig_i != -1)
+		{
+			// if the number is on the stack
+			// check if its the top number on top of stack_b
+			// if there are down elements, they should go up
+			if (*((int *) stk_b->top_node->content) == nbig)
+			{
+				stk_add(stk_pop(stk_b), stk_a);
+				printf("pa\n");
+			}
+			else if ((*((int *) stk_b->top_node->content) > *((int *) stk_a->bottom_node->content)) || down == 0)
+			{
+				stk_add(stk_pop(stk_b), stk_a);
+				printf("pa\n");
+				stk_rot_up(stk_a);
+				printf("ra\n");
+				down++;
+			}
+			else
+			{
+				if (nbig_i < (((int) stk_b->size) / 2))
+				{
+					while (nbig_i > 0)
+					{
+						printf("rb\n");
+						stk_rot_up(stk_b);
+						nbig_i--;
+					}
+				}
+				else
+				{
+					while (nbig_i < (int) stk_b->size)
+					{
+						printf("rrb\n");
+						stk_rot_down(stk_b);
+						nbig_i++;
+					}
+				}
+			}
+		}
+		else
+		{
+			if (nbig == *((int *) stk_a->bottom_node->content))	
+			{
+				printf("rra\n");
+				stk_rot_down(stk_a);
+				down--;
+			}
+			i--;
+		}
 	}
 }
 
 int	main(int argc, char *argv[])
 {
-	
-	// OBJECTIVE: sort a list of numbers using two stacks (a and b) and print all
-	// the operations needed to make the stack a be sorted in ascending order.
-
-	// receive a list of numbers from argv
-	// convert each number into its integer couterpart
-	// store the number into a node
-	// place this node into a stack (called a)
-	// create another stack (called b)
-	// sort the numbers using these two stacks 	
 	int i;
 
 	int *vals = malloc(sizeof(int) * (argc - 1));
@@ -161,8 +199,6 @@ int	main(int argc, char *argv[])
 		node = stk_new_node(n);
 		stk_add(node, stack_a);
 		vals[--i] = *n;
-		//printf("top_node = %s \n", (char *)	stack_a->top_node->content);
-		//printf("bottom_node = %s \n", (char *) stack_a->bottom_node->content);
 	}	
 	vals = mergesort(vals, argc - 1);
 	/*for (int j = 0; j < (argc - 1); j++)
@@ -170,4 +206,5 @@ int	main(int argc, char *argv[])
 	printf("\n"); */
 	t_stk *stack_b = stk_create();
 	send_chunks_to(stack_b, stack_a, vals, stack_a->size);		
+	get_chunks_from(stack_b, stack_a, vals, stack_b->size);
 }
