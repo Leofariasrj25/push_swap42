@@ -6,13 +6,12 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 19:04:26 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/26 20:43:40 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/26 22:00:35 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "stack.h"
-#include "bubblesort.h"
 #include "libft/libft.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -89,26 +88,6 @@ void	send_chunks_to(t_stk *stk_b, t_stk *stk_a, int *val_list, int stack_size)
 	free(number_sent);
 }
 
-int	is_on_stack(t_stk *stk, int value)
-{
-	t_stk_nd	*node;
-	int			number;
-	int			i;
-
-	node = stk->top_node;
-	number = 0;
-	i = 0;
-	while(node)
-	{
-		number = *((int *) node->content);
-		if (number == value)
-			return (i);
-		i++;
-		node = node->previous;
-	}
-	return (-1);
-}
-
 void get_chunks_from(t_stk *stk_b, t_stk *stk_a, int *val_list, int stack_size)
 {
 	int	nbig;
@@ -116,12 +95,6 @@ void get_chunks_from(t_stk *stk_b, t_stk *stk_a, int *val_list, int stack_size)
 	int	i;
 	int down;
 
-	//get the next biggest number, see if it's in stack-b
-	//if true, check if its on top of stack-b
-	// if above true push it to stack_a
-	//if not check if top of stack-b is greater than tail of stack-a OR down = 0
-	//if not, calculate, based on the stack size if its better to rotate up or rotate down
-	// the next biggest number is always the index of prev_num + 1;
 	down = 0;	
 	i = stack_size - 1;
 	while (stk_b->size || down == 0)
