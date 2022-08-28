@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:03:26 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/21 12:02:39 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/27 21:30:48 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 
 void	stk_add(t_stk_nd *new_node, t_stk *stk)
 {
-	t_stk_nd *c_node;
+	t_stk_nd	*c_node;
 
 	c_node = NULL;
-	if (!new_node || !stk)
-		return ;
 	if (!(stk->top_node) && !(stk->bottom_node))
 	{
 		stk->bottom_node = new_node;
@@ -47,7 +45,7 @@ void	stk_add(t_stk_nd *new_node, t_stk *stk)
 
 t_stk_nd	*stk_pop(t_stk *stk)
 {
-	t_stk_nd *pop_node;
+	t_stk_nd	*pop_node;
 
 	if (!stk)
 		return (NULL);
@@ -64,17 +62,17 @@ t_stk_nd	*stk_pop(t_stk *stk)
 	pop_node = stk->top_node;
 	stk->top_node = pop_node->previous;
 	stk->top_node->next = NULL;
-	pop_node->previous = NULL;	
+	pop_node->previous = NULL;
 	stk->size = stk->size - 1;
-	return(pop_node);	
+	return (pop_node);
 }
 
 // sa, sb
 void	stk_swap(t_stk *stack)
 {
-	t_stk_nd *top_node;
-	t_stk_nd *previous_node;
-	
+	t_stk_nd	*top_node;
+	t_stk_nd	*previous_node;
+
 	if (stack->top_node == stack->bottom_node)
 		return ;
 	top_node = stk_pop(stack);
@@ -84,7 +82,7 @@ void	stk_swap(t_stk *stack)
 }
 
 // ra, rb
-void 	stk_rot_up(t_stk *stack)
+void	stk_rot_up(t_stk *stack)
 {
 	t_stk_nd	*popped_node;
 
@@ -95,7 +93,7 @@ void 	stk_rot_up(t_stk *stack)
 		stk_swap(stack);
 		return ;
 	}
-	popped_node = stk_pop(stack);	
+	popped_node = stk_pop(stack);
 	stack->bottom_node->previous = popped_node;
 	popped_node->next = stack->bottom_node;
 	popped_node->previous = NULL;

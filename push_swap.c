@@ -6,12 +6,13 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 19:04:26 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/26 22:00:35 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/28 00:44:16 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "stack.h"
+#include "stack_ops.h"
 #include "libft/libft.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -46,111 +47,86 @@ int		is_chunk_sent(int *range, int start, int end)
 	return (1);
 }
 
-void	send_chunks_to(t_stk *stk_b, t_stk *stk_a, int *val_list, int stack_size)
+void	send_chunks_to(t_stk *stk_b, t_stk *stk_a, int *val_list, int stk_size)
 {
 	int	*number_sent;
 	int	middle;
-	int	offset;
 	int	start;
 	int	end;
 
-	middle = stack_size / 2;
-	offset = stack_size / get_const(stack_size);
+/*	middle = stk_size / 2;
+	offset = stk_size / get_const(stk_size);
 	start = middle - offset;
-	end = middle + offset;
-	number_sent = ft_calloc(stack_size, sizeof(int));
+	end = middle + offset; */
+	set_values(&start, &end, &middle, stk_size);
+	number_sent = ft_calloc(stk_size, sizeof(int)); 
 	while (stk_a->size)
 	{
 		while (!is_chunk_sent(number_sent, start, end) && stk_a->size)
 		{
-			int number = *((int *) stk_a->top_node->content);
+			int number = stk_a->top_node->value;
 			int n_index = is_in_range(number, start, end, val_list);
 			if (n_index != -1 && number_sent[n_index] != 1)
 			{
 				number_sent[n_index] = 1;
-				stk_add(stk_pop(stk_a), stk_b);
-				printf("pb\n");
+				push_to_b(stk_a, stk_b);
 				if (number < middle)
-				{
-					stk_rot_up(stk_b);
-					printf("rb\n");
-				}
+					rot_up_b(stk_b);
 			}
 			else
-			{
-				stk_rot_up(stk_a);
-				printf("ra\n");
-			}
+				rot_up_a(stk_a);
 		}	
-		start = start - offset;
-		end = end + offset;
+		update_range(&start, &end, stk_size);
 	}
 	free(number_sent);
 }
 
-void get_chunks_from(t_stk *stk_b, t_stk *stk_a, int *val_list, int stack_size)
+void get_chunks_from(t_stk *stk_b, t_stk *stk_a, int *val_list, int stk_size)
 {
-	int	nbig;
-	int	nbig_i;
+	int	next_big;
+	int	next_big_i;
 	int	i;
 	int down;
 
-	down = 0;	
-	i = stack_size - 1;
-	while (stk_b->size || down == 0)
+	i = stk_size - 1;
+	down = 0;
+	while (stk_b->size || down)
 	{
-		if (stk_b->size != 0 && i >= 0)
-			nbig = val_list[i]; 
-		nbig_i = is_on_stack(stk_b, nbig);
-		if (nbig_i != -1)
+		next_big = val_list[i];
+		next_big_i = is_on_stack(stk_b, next_big);
+		if (next_big_i != -1 && stk_b->size)
 		{
-			// if the number is on the stack
-			// check if its the top number on top of stack_b
-			// if there are down elements, they should go up
-			if (*((int *) stk_b->top_node->content) == nbig)
+			if (next_big == stk_b->top_node->value)
 			{
-				stk_add(stk_pop(stk_b), stk_a);
-				printf("pa\n");
+				push_to_a(stk_b, stk_a);
+				i--;
 			}
-			else if ((*((int *) stk_b->top_node->content) > *((int *) stk_a->bottom_node->content)) || down == 0)
+			else if (down == 0
+				|| (stk_a->size && stk_b->top_node->value > stk_a->bottom_node->value))
 			{
-				stk_add(stk_pop(stk_b), stk_a);
-				printf("pa\n");
-				stk_rot_up(stk_a);
-				printf("ra\n");
+				push_to_a(stk_b, stk_a);
+				rot_up_a(stk_a);
 				down++;
+			}
+			if (next_big_i < (((int) stk_b->size) / 2))
+			{
+				rot_up_b(stk_b);
+				next_big_i--;
 			}
 			else
 			{
-				if (nbig_i < (((int) stk_b->size) / 2))
-				{
-					while (nbig_i > 0)
-					{
-						printf("rb\n");
-						stk_rot_up(stk_b);
-						nbig_i--;
-					}
-				}
-				else
-				{
-					while (nbig_i < (int) stk_b->size)
-					{
-						printf("rrb\n");
-						stk_rot_down(stk_b);
-						nbig_i++;
-					}
-				}
+				rot_down_b(stk_b);
+				next_big_i++;
 			}
 		}
 		else
 		{
-			if (nbig == *((int *) stk_a->bottom_node->content))	
+			if (next_big == stk_a->bottom_node->value)
 			{
-				printf("rra\n");
-				stk_rot_down(stk_a);
+				rot_down_a(stk_a);
+				i--;
 				down--;
 			}
-			i--;
 		}
 	}
 }
@@ -167,17 +143,14 @@ int	main(int argc, char *argv[])
 	while (i)
 	{
 		t_stk_nd *node = NULL;
-		int *n = malloc(sizeof(int));
-		*n = ft_atoi(argv[i]);
+		int n = ft_atoi(argv[i]);
 		node = stk_new_node(n);
 		stk_add(node, stack_a);
-		vals[--i] = *n;
+		vals[--i] = n;
 	}	
 	vals = mergesort(vals, argc - 1);
-	/*for (int j = 0; j < (argc - 1); j++)
-		printf("%d ", vals[j]);
-	printf("\n"); */
 	t_stk *stack_b = stk_create();
 	send_chunks_to(stack_b, stack_a, vals, stack_a->size);		
 	get_chunks_from(stack_b, stack_a, vals, stack_b->size);
+	print_op(FLUSH_OP);
 }
