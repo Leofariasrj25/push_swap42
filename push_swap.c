@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 19:04:26 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/28 18:02:49 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/28 18:16:13 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	main(int argc, char *argv[])
 	t_stk *stack_b = stk_create();
 	if (stack_a->size == 3)
 		sort_three(stack_a);
+	else if (stack_a->size == 5)
+		sort_five(stack_a, stack_b);
 	else
 	{
 		send_chunks_to(stack_b, stack_a, vals, stack_a->size);

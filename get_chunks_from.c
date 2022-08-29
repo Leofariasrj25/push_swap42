@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 12:44:05 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/28 17:31:29 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/28 23:54:24 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,11 @@ static void	send_to_bottom_a(t_stk *stk_a, t_stk *stk_b, int *down)
 	int	top_b;
 	int	bottom_a;
 
-	top_b = stk_b->top_node->value;
-	bottom_a = stk_a->bottom_node->value;
+	if (stk_b->size != 0)
+	{
+		top_b = stk_b->top_node->value;
+		bottom_a = stk_a->bottom_node->value;
+	}
 	if (*down == 0 || (stk_a->size && top_b > bottom_a))
 	{
 		push_to_a(stk_b, stk_a);

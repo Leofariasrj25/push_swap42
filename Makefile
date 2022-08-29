@@ -1,6 +1,7 @@
 NAME = push_swap
 SRC	=	push_swap.c \
 		push_swap_utils.c \
+		sort_small.c \
 		send_chunks_to.c \
 		send_chunks_utils.c \
 		get_chunks_from.c \
