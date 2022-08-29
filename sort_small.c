@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 17:43:16 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/28 23:44:25 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/29 13:10:15 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void	sort_three(t_stk *stk_a)
 	if (num_a > num_b && (num_a < num_c && num_b < num_c))
 		swap_a(stk_a);
 	else if (num_a > num_b && (num_a > num_c && num_b > num_c))
-		rot_down_a(stk_a);
+	{
+		rot_up_a(stk_a);
+		swap_a(stk_a);
+	}
 	else if (num_a > num_b && (num_b < num_c && num_a > num_c))
 		rot_up_a(stk_a);
 	else if (num_a < num_b && (num_a < num_c && num_b > num_c))
@@ -45,7 +48,8 @@ void	sort_five(t_stk *stk_a, t_stk *stk_b)
 {
 	int	i;
 
-	push_to_b(stk_a, stk_b);
+	if (stk_a->size == 5)
+		push_to_b(stk_a, stk_b);
 	push_to_b(stk_a, stk_b);
 	sort_three(stk_a);
 	i = stk_b->size;
