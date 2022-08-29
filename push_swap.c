@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 19:04:26 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/28 18:16:13 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/29 12:31:38 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ int	main(int argc, char *argv[])
 	}	
 	vals = mergesort(vals, argc - 1);
 	t_stk *stack_b = stk_create();
-	if (stack_a->size == 3)
+	if (stack_a->size == 2)
+		swap_a(stack_a);
+	else if (stack_a->size == 3)
 		sort_three(stack_a);
-	else if (stack_a->size == 5)
+	else if (stack_a->size == 4 || stack_a->size == 5)
 		sort_five(stack_a, stack_b);
 	else
 	{
