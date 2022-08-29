@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 12:44:05 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/28 23:54:24 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/29 19:45:08 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ static void	rot_to_biggest(t_stk *stk_b, int *next_big_i);
 static void	rev_rot_bottom(t_stk *stk, int next_big, int *i, int *down);
 static void	send_to_bottom_a(t_stk *stk_a, t_stk *stk_b, int *down);
 
-void	get_chunks_from(t_stk *stk_b, t_stk *stk_a, int *sorted, int stk_size)
+void	get_chunks(t_stk *stk_b, t_stk *stk_a, long int *sorted, int size)
 {
 	int	next_big;
 	int	next_big_i;
 	int	i;
 	int	down;
 
-	i = stk_size - 1;
+	i = size - 1;
 	down = 0;
 	while (stk_b->size || down)
 	{
@@ -72,11 +72,12 @@ static void	send_to_bottom_a(t_stk *stk_a, t_stk *stk_b, int *down)
 	int	top_b;
 	int	bottom_a;
 
+	top_b = 0;
+	bottom_a = 0;
 	if (stk_b->size != 0)
-	{
 		top_b = stk_b->top_node->value;
+	if (stk_a->size != 0)
 		bottom_a = stk_a->bottom_node->value;
-	}
 	if (*down == 0 || (stk_a->size && top_b > bottom_a))
 	{
 		push_to_a(stk_b, stk_a);

@@ -6,19 +6,18 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 20:30:43 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/23 20:58:47 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/29 15:20:27 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
 
-static void	merge_recursive(int *val_list, int left, int right);
-static void	merge(int *val_list, int left, int middle, int right);
-static int	*sub_list(int *val_list, int start, int end);
-static int	*flush_stack(int *origin, int *destiny, int *d_index, int o_end);
+static void		merge_recursive(long int *val_list, int left, int right);
+static void		merge(long int *val_list, int left, int middle, int right);
+static long int	*sub_list(long int *val_list, int start, int end);
+static long int	*flush_stk(long int *orgn, long int *dst, int *d_i, int o_end);
 
-int	*mergesort(int *val_list, int length)
+long int	*mergesort(long int *val_list, int length)
 {
 	if (!val_list)
 		return (NULL);
@@ -28,7 +27,7 @@ int	*mergesort(int *val_list, int length)
 	return (val_list);
 }
 
-static void	merge_recursive(int *val_list, int left, int right)
+static void	merge_recursive(long int *val_list, int left, int right)
 {
 	int	middle;
 
@@ -42,13 +41,13 @@ static void	merge_recursive(int *val_list, int left, int right)
 	}
 }
 
-static void	merge(int *val_list, int left, int middle, int right)
+static void	merge(long int *val_list, int left, int middle, int right)
 {
-	int	*left_stack;
-	int	*right_stack;
-	int	ltop;
-	int	rtop;
-	int	i;
+	long int	*left_stack;
+	long int	*right_stack;
+	int			ltop;
+	int			rtop;
+	int			i;
 
 	left_stack = sub_list(val_list, left, middle + 1);
 	right_stack = sub_list(val_list, middle + 1, right);
@@ -62,21 +61,21 @@ static void	merge(int *val_list, int left, int middle, int right)
 		else
 			val_list[i++] = right_stack[rtop++];
 	}	
-	flush_stack(&left_stack[ltop], val_list, &i, (middle - left + 1) - ltop);
-	flush_stack(&right_stack[rtop], val_list, &i, (right - middle) - rtop);
+	flush_stk(&left_stack[ltop], val_list, &i, (middle - left + 1) - ltop);
+	flush_stk(&right_stack[rtop], val_list, &i, (right - middle) - rtop);
 	free(left_stack);
 	free(right_stack);
 }
 
-int	*sub_list(int *val_list, int start, int end)
+long int	*sub_list(long int *val_list, int start, int end)
 {
-	int	*sub_list;
-	int	i;
-	int	j;
+	long int	*sub_list;
+	int			i;
+	int			j;
 
 	i = 0;
 	j = start;
-	sub_list = malloc(sizeof(int) * (end - start + 1));
+	sub_list = malloc(sizeof(long int) * (end - start + 1));
 	while (i < (end - start + 1))
 	{
 		sub_list[i] = val_list[j];
@@ -86,22 +85,24 @@ int	*sub_list(int *val_list, int start, int end)
 	return (sub_list);
 }
 
-int	*flush_stack(int *origin, int *destiny, int *d_index, int size)
+long int	*flush_stk(long int *orgn, long int *dst, int *d_i, int size)
 {
 	int	i;
 
 	i = 0;
 	while (i < size)
 	{
-		destiny[*d_index] = *origin;
-		origin++;
-		*d_index = *d_index + 1;
+		dst[*d_i] = *orgn;
+		orgn++;
+		*d_i = *d_i + 1;
 		i++;
 	}
-	return (destiny);
+	return (dst);
 }
 
-/*void	print_vals(int *vals, int size)
+/*
+#include <stdio.h>
+void	print_vals(int *vals, int size)
 {
 	int i;
 

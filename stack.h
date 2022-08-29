@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 19:17:24 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/27 21:46:45 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/29 19:34:51 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ typedef struct s_stack
 	unsigned int		size;
 }	t_stk;
 
-void		print_op(const int OP);
 t_stk		*stk_create(void);
+t_stk		*stk_create_from(long int *vals, int size);
 t_stk_nd	*stk_new_node(int value);
 void		stk_add(t_stk_nd *new_node, t_stk *stk);
 t_stk_nd	*stk_pop(t_stk *stk);

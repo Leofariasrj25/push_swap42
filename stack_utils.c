@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 11:59:57 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/28 00:17:16 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/29 19:34:30 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,23 @@ t_stk	*stk_create(void)
 	stk->top_node = NULL;
 	stk->bottom_node = NULL;
 	stk->size = 0;
+	return (stk);
+}
+
+t_stk	*stk_create_from(long int *values, int size)
+{
+	int			i;
+	t_stk		*stk;
+	t_stk_nd	*node;
+
+	i = size;
+	stk = stk_create();
+	if (!stk)
+		return (NULL);
+	while (i--)
+	{
+		node = stk_new_node(values[i]);		
+		stk_add(node, stk);
+	}
 	return (stk);
 }
