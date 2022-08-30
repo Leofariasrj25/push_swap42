@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 17:43:16 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/29 13:10:15 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/30 17:49:50 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	sort_three(t_stk *stk_a)
 		swap_a(stk_a);
 	else if (num_a > num_b && (num_a > num_c && num_b > num_c))
 	{
-		rot_up_a(stk_a);
 		swap_a(stk_a);
+		rot_down_a(stk_a);
 	}
 	else if (num_a > num_b && (num_b < num_c && num_a > num_c))
 		rot_up_a(stk_a);
@@ -51,6 +51,9 @@ void	sort_five(t_stk *stk_a, t_stk *stk_b)
 	if (stk_a->size == 5)
 		push_to_b(stk_a, stk_b);
 	push_to_b(stk_a, stk_b);
+	if (stk_b->size == 2 
+		&& stk_b->top_node->value > stk_b->top_node->previous->value)
+		swap_b(stk_b);
 	sort_three(stk_a);
 	i = stk_b->size;
 	while (i)
@@ -91,7 +94,7 @@ static int	put_middle(t_stk *stk_a, t_stk *stk_b)
 
 	i = 0;
 	node = stk_a->top_node;
-	while (node)
+	while (node && stk_b->size)
 	{
 		if (node->value < stk_b->top_node->value)
 			i++;
@@ -113,7 +116,7 @@ static int	make_space(t_stk *stk_a, t_stk *stk_b, int i)
 	int	down;
 
 	down = stk_a->size - i;
-	while (down--)
+	while (stk_b->size && down--)
 	{
 		rot_down_a(stk_a);
 	}

@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 19:04:26 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/29 20:27:12 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/29 21:17:48 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static void	stk_sort(long int *vals, long int *sorted_vals,  int size);
+static void	push_swap(long int *vals, long int *sorted_vals,  int size);
 static void	destroy(t_stk *stka, t_stk *stkb, long int *arr1, long int *arr2);
 
 int	main(int argc, char *argv[])
@@ -43,20 +43,19 @@ int	main(int argc, char *argv[])
 	{
 		free(vals);
 		free(sorted);
-		ft_putendl_fd("Error!", 1);
+		ft_putendl_fd("Error\n", 2);
 		exit(1);
 	}
-	stk_sort(vals, sorted, input_size);
+	push_swap(vals, sorted, input_size);
 }
 
-static void	stk_sort(long int *input_vals, long int *sorted_vals, int size)
+static void	push_swap(long int *input_vals, long int *sorted_vals, int size)
 {
 	t_stk		*stack_a;
 	t_stk		*stack_b;
 
 	stack_a = stk_create_from(input_vals, size);
 	stack_b = stk_create();
-	// *this is working as intended!*
 	if (stack_a->size == 2)
 		swap_a(stack_a);
 	else if (stack_a->size == 3)
