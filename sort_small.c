@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 17:43:16 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/30 17:49:50 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/31 00:57:28 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	sort_five(t_stk *stk_a, t_stk *stk_b)
 	if (stk_a->size == 5)
 		push_to_b(stk_a, stk_b);
 	push_to_b(stk_a, stk_b);
-	if (stk_b->size == 2 
+	if (stk_b->size == 2
 		&& stk_b->top_node->value > stk_b->top_node->previous->value)
 		swap_b(stk_b);
 	sort_three(stk_a);
