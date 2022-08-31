@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 19:50:33 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/31 00:58:02 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/31 01:03:58 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static void		destroy(char **matrix, long int *arr1, long int *arr2);
 long int	*parse_input(char **input, int input_size, int *n_size)
 {
 	long int	*int_values;
-	char 		*str_values;
-	
+	char		*str_values;
+
 	str_values = get_str_values(input, input_size);
 	if (!str_values)
 	{
@@ -58,7 +58,7 @@ static char	*get_str_values(char **input, int size)
 	aux2 = NULL;
 	str_values = aux1;
 	i = 1;
-	while(i < size && input[i])
+	while (i < size && input[i])
 	{
 		aux1 = ft_strjoin(input[i], " ");
 		aux2 = str_values;
@@ -77,7 +77,7 @@ static long int	*get_lngint_values(char *str_values, int *size)
 	long int	*temp;
 	int			i;
 
-	holder = ft_split(str_values, ' ');	
+	holder = ft_split(str_values, ' ');
 	i = 0;
 	*size = 0;
 	while (holder[i++])
@@ -92,18 +92,17 @@ static long int	*get_lngint_values(char *str_values, int *size)
 			destroy(holder, temp, lngint_values);
 			return (NULL);
 		}
-		lngint_values[i] = *temp;
+		lngint_values[i++] = *temp;
 		free(temp);
-		i++;
 	}
 	destroy(holder, NULL, NULL);
 	return (lngint_values);
 }
 
-static void destroy(char **matrix, long int *temp, long int *values)
+static void	destroy(char **matrix, long int *temp, long int *values)
 {
 	int	i;
-	
+
 	i = 0;
 	while (matrix[i])
 	{
@@ -116,4 +115,3 @@ static void destroy(char **matrix, long int *temp, long int *values)
 	if (values)
 		free(values);
 }
-

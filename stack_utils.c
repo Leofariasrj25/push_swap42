@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 11:59:57 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/29 20:25:56 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/31 01:04:52 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_stk	*stk_create_from(long int *values, int size)
 		return (NULL);
 	while (i--)
 	{
-		node = stk_new_node(values[i]);		
+		node = stk_new_node(values[i]);
 		stk_add(node, stk);
 	}
 	return (stk);
@@ -58,8 +58,8 @@ t_stk	*stk_create_from(long int *values, int size)
 
 void	stk_clean(t_stk *stk)
 {
-	t_stk_nd *node;
-	t_stk_nd *aux;
+	t_stk_nd	*node;
+	t_stk_nd	*aux;
 
 	node = stk->top_node;
 	while (node)

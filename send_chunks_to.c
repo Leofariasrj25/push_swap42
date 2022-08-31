@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 12:32:00 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/30 17:20:50 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/31 01:15:23 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 #include "stack.h"
 #include "stack_ops.h"
 
+#define SET_RNG 0
+#define UPDT_RNG 1
+
 static int	is_in_range(int number, int start, int end, long int *sorted);
 static int	is_chunk_sent(int *range, int start, int end);
-//static void	rotnext_chunk_val(t_stk *stk, int start, int end, long int *sorted);
+static void	set_chunk_rng(int *start, int *end, int stk_size, int flag);
+static int	get_const(int stack_size);
 
 void	send_chunks(t_stk *stk_b, t_stk *stk_a, long int *sorted, int size)
 {
@@ -25,7 +29,7 @@ void	send_chunks(t_stk *stk_b, t_stk *stk_a, long int *sorted, int size)
 	int	end;
 	int	n_index;
 
-	set_chunk_rng(&start, &end, size);
+	set_chunk_rng(&start, &end, size, SET_RNG);
 	number_sent = ft_calloc(size, sizeof(int));
 	while (stk_a->size)
 	{
@@ -42,7 +46,7 @@ void	send_chunks(t_stk *stk_b, t_stk *stk_a, long int *sorted, int size)
 			else
 				rot_up_a(stk_a);
 		}	
-		update_chunk_rng(&start, &end, size);
+		set_chunk_rng(&start, &end, size, UPDT_RNG);
 	}
 	free(number_sent);
 }
@@ -77,10 +81,36 @@ static int	is_chunk_sent(int *range, int start, int end)
 	return (1);
 }
 
-/*static void	rotnext_chunk_val(t_stk *stk, int start, int end, long int *sorted)
+static int	get_const(int stack_size)
 {
-	if (is_in_range(stk->bottom_node->value, start, end, sorted) != -1)
-		rot_down_a(stk);
+	int	n;
+
+	if (stack_size <= 10)
+		n = 5;
+	else if (stack_size <= 150)
+		n = 8;
+	else if (stack_size > 150)
+		n = 18;
+	return (n);
+}
+
+static void	set_chunk_rng(int *start, int *end, int stk_size, int flag)
+{
+	int	offset;
+
+	offset = stk_size / get_const(stk_size);
+	if (flag == 0)
+	{
+		*start = (stk_size / 2) - offset;
+		*end = (stk_size / 2) + offset;
+	}
 	else
-		rot_up_a(stk);
-}*/
+	{
+		*start = *start - offset;
+		*end = *end + offset;
+		if (*start < 0)
+			*start = 0;
+		if (*end >= stk_size)
+			*end = stk_size - 1;
+	}
+}

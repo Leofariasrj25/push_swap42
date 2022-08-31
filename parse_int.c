@@ -6,7 +6,7 @@
 /*   By: lfarias- <leofariasrj25@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 14:28:49 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/30 21:36:15 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/31 01:28:53 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,20 @@ static int	ft_isspace(char c)
 		return (1);
 	else
 		return (0);
+}
+
+static int	check_signal(const char *str, int *i)
+{
+	int	signal;
+
+	signal = 1;
+	if (str[*i] == '-' || str[*i] == '+')
+	{
+		if (str[*i] == '-')
+			signal *= -1;
+		*i = *i + 1;
+	}
+	return (signal);
 }
 
 long int	*parse_int(const char *str)
@@ -34,12 +48,7 @@ long int	*parse_int(const char *str)
 	i = 0;
 	while (ft_isspace(str[i]))
 		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			signal *= -1;
-		i++;
-	}
+	signal = check_signal(str, &i);
 	if (ft_isdigit(str[i]))
 		ret = malloc(sizeof(long int));
 	while (ft_isdigit(str[i]))
