@@ -1,4 +1,6 @@
 NAME = push_swap
+CC = cc
+CFLAGS = -Wall -Werror -Wextra
 SRC	=	push_swap.c \
 		push_swap_utils.c \
 		input_parser.c \
@@ -12,11 +14,9 @@ SRC	=	push_swap.c \
 		stack_ops_a.c \
 		stack_ops_b.c \
 		print_op.c
+BONUS_SRC = checker.c
 LIBFT_DIR = ./libft/
-CC = cc
-CFLAGS = -Wall -Werror -Wextra
-T_MAIN = test_main.c
-
+GNL_DIR = ./get_next_line/
 $(NAME):
 	make -C $(LIBFT_DIR) libft.a
 	$(CC) $(CFLAGS) -g -I. $(SRC) $(LIBFT_DIR)libft.a -o $(NAME)
@@ -30,11 +30,6 @@ clean:
 	
 re: clean $(NAME)
 
-test:
-	make -C $(LIBFT_DIR) libft.a
-	$(CC) $(CFLAGS) -I. stack.c stack_utils.c test_main.c $(LIBFT_DIR)libft.a -o test
-
-tclean:
-	rm -f ./test
-
-tre: tclean test
+bonus:
+		make -C $(LIBFT_DIR) libft.a
+		$(CC) $(CFLAGS) -g -I. $(BONUS_SRC) $(LIBFT_DIR)libft.a -o $(NAME)
