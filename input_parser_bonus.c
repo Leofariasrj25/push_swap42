@@ -6,11 +6,11 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 19:50:33 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/31 14:10:14 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/31 14:46:29 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker_bonus.h"
 
 #ifndef INT_MAX
 # define INT_MAX 2147483647
