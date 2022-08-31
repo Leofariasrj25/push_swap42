@@ -6,7 +6,7 @@
 /*   By: lfarias- <leofariasrj25@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 14:28:49 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/31 01:28:53 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/31 11:32:13 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ long int	*parse_int(const char *str)
 	while (ft_isspace(str[i]))
 		i++;
 	signal = check_signal(str, &i);
-	if (ft_isdigit(str[i]))
+	if (str[i] != '\0' || ft_isdigit(str[i]))
 		ret = malloc(sizeof(long int));
+	else
+		return (NULL);
 	while (ft_isdigit(str[i]))
 	{
 		res = res * 10 + (str[i] - 48);

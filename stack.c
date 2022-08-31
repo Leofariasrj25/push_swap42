@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:03:26 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/27 21:30:48 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/31 13:04:53 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,18 @@
 
 void	stk_add(t_stk_nd *new_node, t_stk *stk)
 {
-	t_stk_nd	*c_node;
-
-	c_node = NULL;
-	if (!(stk->top_node) && !(stk->bottom_node))
+	if (stk->size == 0)
 	{
+		stk->top_node = new_node;
 		stk->bottom_node = new_node;
-		c_node = new_node;
-		while (c_node->next)
-		{
-			c_node = c_node->next;
-			stk->size = stk->size + 1;
-		}
-		stk->size = stk->size + 1;
-		stk->top_node = c_node;
+		stk->size = 1;
 		return ;
 	}
 	stk->top_node->next = new_node;
 	new_node->previous = stk->top_node;
-	c_node = new_node;
-	while (c_node->next)
-	{
-		c_node = c_node->next;
-		stk->size = stk->size + 1;
-	}
+	new_node->next = NULL;
+	stk->top_node = stk->top_node->next;
 	stk->size = stk->size + 1;
-	stk->top_node = c_node;
 }
 
 t_stk_nd	*stk_pop(t_stk *stk)

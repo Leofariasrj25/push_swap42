@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 19:04:26 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/31 00:57:03 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/31 13:02:43 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,18 @@ int	main(int argc, char *argv[])
 		return (0);
 	n_size = 0;
 	vals = parse_input(&argv[1], input_size, &n_size);
-	if (n_size == 1)
+	if (n_size == 1 || check_is_sort(vals, n_size))
 	{
 		free(vals);
 		return (0);
 	}
 	sorted = dup_val_lst(vals, n_size);
 	sorted = mergesort(sorted, n_size);
-	if (!check_is_sort(sorted, n_size) || !check_no_dups(sorted, n_size))
+	if (!check_no_dups(sorted, n_size))
 	{
-		free(vals);
-		free(sorted);
-		ft_putendl_fd("Error\n", 2);
-		exit(1);
+		destroy(NULL, NULL, vals, sorted);
+		ft_putendl_fd("Error", 2);
+		exit(127);
 	}
 	push_swap(vals, sorted, n_size);
 }
@@ -56,8 +55,11 @@ static void	push_swap(long int *input_vals, long int *sorted_vals, int size)
 
 	stack_a = stk_create_from(input_vals, size);
 	stack_b = stk_create();
-	if (stack_a->size == 2)
+	if (stack_a->size == 2
+		&& stack_a->top_node->value > stack_a->bottom_node->value)
+	{
 		swap_a(stack_a);
+	}
 	else if (stack_a->size == 3)
 		sort_three(stack_a);
 	else if (stack_a->size == 4 || stack_a->size == 5)

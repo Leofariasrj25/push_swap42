@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 19:50:33 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/31 01:03:58 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/31 12:16:41 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@
 #endif
 
 static char		*get_str_values(char **input, int size);
-static long int	*get_lngint_values(char *str_values, int *n_size);
+static long int	*get_lngint_values(char *str_values, int *n_size, int arg_size);
 static void		destroy(char **matrix, long int *arr1, long int *arr2);
+static char		**get_holder(char *str_values, int *num_qtty, int args_size);
 
 long int	*parse_input(char **input, int input_size, int *n_size)
 {
@@ -35,12 +36,12 @@ long int	*parse_input(char **input, int input_size, int *n_size)
 		ft_putendl_fd("Error", 2);
 		exit(1);
 	}
-	int_values = get_lngint_values(str_values, n_size);
+	int_values = get_lngint_values(str_values, n_size, input_size);
 	free(str_values);
 	if (!int_values)
 	{
 		ft_putendl_fd("Error", 2);
-		exit(1);
+		exit(127);
 	}
 	return (int_values);
 }
@@ -70,21 +71,17 @@ static char	*get_str_values(char **input, int size)
 	return (str_values);
 }
 
-static long int	*get_lngint_values(char *str_values, int *size)
+static long int	*get_lngint_values(char *str_values, int *num_qtty, int ag_size)
 {
 	char		**holder;
 	long int	*lngint_values;
 	long int	*temp;
 	int			i;
 
-	holder = ft_split(str_values, ' ');
+	holder = get_holder(str_values, num_qtty, ag_size);
+	lngint_values = malloc(sizeof(long int) * *num_qtty);
 	i = 0;
-	*size = 0;
-	while (holder[i++])
-		*size = *size + 1;
-	lngint_values = malloc(sizeof(long int) * *size);
-	i = 0;
-	while (i < *size)
+	while (i < *num_qtty)
 	{
 		temp = parse_int(holder[i]);
 		if (!temp || *temp < INT_MIN || *temp > INT_MAX)
@@ -97,6 +94,24 @@ static long int	*get_lngint_values(char *str_values, int *size)
 	}
 	destroy(holder, NULL, NULL);
 	return (lngint_values);
+}
+
+static char	**get_holder(char *str_values, int *num_qtty, int args_size)
+{
+	int		i;
+	char	**holder;
+
+	holder = ft_split(str_values, ' ');
+	i = 0;
+	*num_qtty = 0;
+	while (holder[i++])
+		*num_qtty = *num_qtty + 1;
+	if (*num_qtty < args_size)
+	{
+		destroy(holder, NULL, NULL);
+		return (NULL);
+	}
+	return (holder);
 }
 
 static void	destroy(char **matrix, long int *temp, long int *values)
