@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 14:09:47 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/31 14:42:58 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/31 14:46:36 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,4 @@ int	main(int argc, char **argv)
 	// via pipe
 	if (argc - 1 == 0)
 		return (0);
-
 }
