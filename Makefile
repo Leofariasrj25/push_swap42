@@ -1,4 +1,5 @@
 NAME = push_swap
+BONUS_NAME = checker
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 SRC	=	push_swap.c \
@@ -14,22 +15,53 @@ SRC	=	push_swap.c \
 		stack_ops_a.c \
 		stack_ops_b.c \
 		print_op.c
-BONUS_SRC = checker.c
+
+BONUS_SRC = checker_bonus.c \
+			stack_bonus.c \
+			stack_utils_bonus.c \
+			input_parser_bonus.c \
+			parse_int_bonus.c \
+			exec_ops_bonus.c \
+			check_dup_bonus.c \
+			merge_sort_bonus.c
+
+GNL_DIR = ./get_next_line
+GNL_SRC = get_next_line.c \
+		  get_next_line_utils.c
+
+SRC_OBJ = $(SRC:.c=.o)
+BONUS_OBJ = $(BONUS_SRC:.c=.o)
+GNL_OBJ = $(GNL_SRC:.c=.o)
+
 LIBFT_DIR = ./libft/
-GNL_DIR = ./get_next_line/
+
 $(NAME):
 	make -C $(LIBFT_DIR) libft.a
-	$(CC) $(CFLAGS) -g -I. $(SRC) $(LIBFT_DIR)libft.a -o $(NAME)
-	cp $(NAME) ./visualizer/
-	./visualizer/visualizer
+	$(CC) $(CFLAGS) -c -I. $(SRC)
+	$(CC) $(CFLAGS) -I. $(SRC_OBJ) $(LIBFT_DIR)libft.a -o $(NAME)
 
 all: $(NAME)
 
 clean:
-	rm -f push_swap
-	
-re: clean $(NAME)
+	rm -f $(SRC_OBJ)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean $(NAME)
 
 bonus:
-		make -C $(LIBFT_DIR) libft.a
-		$(CC) $(CFLAGS) -g -I. $(BONUS_SRC) $(LIBFT_DIR)libft.a -o $(NAME)
+	make -C $(LIBFT_DIR)
+	$(CC) $(CFLAGS) -c -g -I. $(BONUS_SRC) $(GNL_DIR)/get_next_line.c $(GNL_DIR)/get_next_line_utils.c
+	$(CC) $(CFLAGS) -I. $(BONUS_OBJ) $(GNL_OBJ) $(LIBFT_DIR)libft.a -o $(BONUS_NAME)		
+
+bclean:
+	rm -f $(BONUS_OBJ) $(GNL_DIR)$(GNL_OBJ)	
+
+bfclean: bclean
+	rm -f $(BONUS_NAME)
+
+bre: bclean bonus
+
+.PHONY:
+	all clean fclean re bonus bclean bfclean bre

@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 19:50:33 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/31 14:46:29 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/31 19:37:46 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ static long int	*get_lngint_values(char *str_values, int *num_qtty, int ag_size)
 	int			i;
 
 	holder = get_holder(str_values, num_qtty, ag_size);
+	if (!holder)
+		return (NULL);
 	lngint_values = malloc(sizeof(long int) * *num_qtty);
 	i = 0;
 	while (i < *num_qtty)

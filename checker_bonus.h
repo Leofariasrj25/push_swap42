@@ -6,17 +6,21 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 14:41:00 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/31 14:47:22 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/31 21:34:26 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CHECKER_BONUS_H
 # define CHECKER_BONUS_H
 
-#include "libft/libft.h"
-#include "get_next_line/get_next_line.h"
-#include "<stdlib.h>"
-
+# include "libft/libft.h"
+# include "get_next_line/get_next_line.h"
+# include "stack_bonus.h"
+# include <stdlib.h>
 
 long int	*parse_input(char **input, int input_size, int *n_size);
+long int	*parse_int(const char *str);
+long int	*mergesort(long int *val_list, int length);
+int			check_dups(long int *values, int n_size);
+void		exec_op(char *op_str, t_stk *stk_a, t_stk *stk_b);
 #endif
