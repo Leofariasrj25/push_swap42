@@ -6,11 +6,12 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 14:09:47 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/31 21:33:04 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/31 22:15:59 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker_bonus.h"
+#include <stdio.h>
 
 static void		sort(t_stk *stk_a, t_stk *stk_b);
 static int		is_valid_op(char *op_str);
@@ -50,14 +51,14 @@ static int	is_valid_op(char *op_str)
 {
 	int			i;
 	int			input_len;
-	static char	*ops[] = {"pa", "pb", "sa", "sb", "ra", "rb", "rr",
+	static char	*ops[] = {"pa", "pb", "sa", "sb", "ss", "ra", "rb", "rr",
 		"rra", "rrb", "rrr"};
 
 	input_len = ft_strlen(op_str) - 1;
 	if (input_len < 2)
 		return (0);
 	i = 0;
-	while (i < 10)
+	while (i < 11)
 	{
 		if (ft_strncmp(ops[i], op_str, input_len) == 0)
 			return (1);

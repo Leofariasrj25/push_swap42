@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 18:48:02 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/31 21:30:54 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/31 22:08:44 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ int	swap(char *op_str, t_stk *stk_a, t_stk *stk_b)
 	}
 	else if (ft_strncmp(op_str, "sb", 2) == 0)
 	{
+		stk_swap(stk_b);
+		return (1);
+	}
+	else if (ft_strncmp(op_str, "ss", 2) == 0)
+	{
+		stk_swap(stk_a);
 		stk_swap(stk_b);
 		return (1);
 	}

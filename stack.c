@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 22:03:26 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/31 13:04:53 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/08/31 23:41:22 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 void	stk_add(t_stk_nd *new_node, t_stk *stk)
 {
+	if (!stk || !new_node)
+		return ;
 	if (stk->size == 0)
 	{
 		stk->top_node = new_node;
