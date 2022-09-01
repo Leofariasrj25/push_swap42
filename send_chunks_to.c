@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 12:32:00 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/31 01:15:23 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/09/01 11:52:40 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ static int	get_const(int stack_size)
 {
 	int	n;
 
+	n = 1;
 	if (stack_size <= 10)
 		n = 5;
 	else if (stack_size <= 150)

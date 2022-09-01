@@ -43,12 +43,15 @@ $(NAME):
 all: $(NAME)
 
 clean:
+	make -C $(LIBFT_DIR) clean
 	rm -f $(SRC_OBJ)
 
 fclean: clean
 	rm -f $(NAME)
+	make -C $(LIBFT_DIR) fclean
 
 re: fclean $(NAME)
+	make -C $(LIBFT_DIR) re
 
 bonus:
 	make -C $(LIBFT_DIR)

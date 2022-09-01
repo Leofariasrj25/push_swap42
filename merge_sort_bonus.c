@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   merge_sort.c                                       :+:      :+:    :+:   */
+/*   merge_sort_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 20:30:43 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/29 15:20:27 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/09/01 11:47:49 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void		merge(long int *val_list, int left, int middle, int right);
 static long int	*sub_list(long int *val_list, int start, int end);
 static long int	*flush_stk(long int *orgn, long int *dst, int *d_i, int o_end);
 
-long int	*mergesort(long int *val_list, int length)
+long int	*merge_sort(long int *val_list, int length)
 {
 	if (!val_list)
 		return (NULL);

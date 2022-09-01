@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 20:21:19 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/31 21:31:10 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/09/01 11:50:08 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_dups(long	int *values, int n_size)
 		sorted[i] = values[i];
 		i++;
 	}
-	sorted = mergesort(sorted, n_size);
+	sorted = merge_sort(sorted, n_size);
 	i = 1;
 	while (i < n_size)
 	{

@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:25:33 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/31 01:16:11 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/09/01 11:46:58 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft/libft.h"
 # include "stack.h"
 
-long int	*mergesort(long int *list_val, int size);
+long int	*merge_sort(long int *list_val, int size);
 void		sort_three(t_stk *stk_a);
 void		sort_five(t_stk *stk_a, t_stk *stk_b);
 void		send_chunks(t_stk *stk_b, t_stk *stk_a, long int *vals, int size);

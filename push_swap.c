@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 19:04:26 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/31 13:02:43 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/09/01 11:50:44 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char *argv[])
 		return (0);
 	}
 	sorted = dup_val_lst(vals, n_size);
-	sorted = mergesort(sorted, n_size);
+	sorted = merge_sort(sorted, n_size);
 	if (!check_no_dups(sorted, n_size))
 	{
 		destroy(NULL, NULL, vals, sorted);
