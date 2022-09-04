@@ -37,8 +37,10 @@ LIBFT_DIR = ./libft/
 
 $(NAME):
 	make -C $(LIBFT_DIR) libft.a
-	$(CC) $(CFLAGS) -c -I. $(SRC)
-	$(CC) $(CFLAGS) -I. $(SRC_OBJ) $(LIBFT_DIR)libft.a -o $(NAME)
+	$(CC) $(CFLAGS) -g -c -I. $(SRC)
+	$(CC) $(CFLAGS) -g -I. $(SRC_OBJ) $(LIBFT_DIR)libft.a -o $(NAME)
+	cp ./push_swap ./visualizer/
+	./visualizer/visualizer
 
 all: $(NAME)
 

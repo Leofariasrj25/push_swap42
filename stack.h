@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 19:17:24 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/29 20:20:26 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/09/03 20:57:44 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,5 @@ void		stk_swap(t_stk *stk);
 void		stk_rot_up(t_stk *stk);
 void		stk_rot_down(t_stk *stk);
 void		stk_clean(t_stk *stk);
+int			is_on_stack(t_stk *stk, int value, int size);
 #endif

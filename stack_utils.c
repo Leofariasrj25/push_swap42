@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 11:59:57 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/09/02 11:32:31 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/09/03 20:57:58 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,24 @@ void	stk_clean(t_stk *stk)
 		free(aux);
 	}
 	free(stk);
+}
+
+int	is_on_stack(t_stk *stk, int value, int size)
+{
+	t_stk_nd	*node;
+	int			number;
+	int			i;
+
+	node = stk->top_node;
+	number = 0;
+	i = 0;
+	while (i < size && node)
+	{
+		number = node->value;
+		if (number == value)
+			return (i);
+		i++;
+		node = node->previous;
+	}
+	return (-1);
 }

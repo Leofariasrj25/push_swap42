@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 12:32:00 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/09/01 11:52:40 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/09/02 15:09:18 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 
 static int	is_in_range(int number, int start, int end, long int *sorted);
 static int	is_chunk_sent(int *range, int start, int end);
-static void	set_chunk_rng(int *start, int *end, int stk_size, int flag);
 static int	get_const(int stack_size);
+void		update_chunk_range(int *start, int *end, int stk_size, int *number_sent);
+void		set_chunk_range(int *start, int *end, int stk_size);
 
 void	send_chunks(t_stk *stk_b, t_stk *stk_a, long int *sorted, int size)
 {
@@ -29,9 +30,9 @@ void	send_chunks(t_stk *stk_b, t_stk *stk_a, long int *sorted, int size)
 	int	end;
 	int	n_index;
 
-	set_chunk_rng(&start, &end, size, SET_RNG);
 	number_sent = ft_calloc(size, sizeof(int));
-	while (stk_a->size)
+	set_chunk_range(&start, &end, size);
+	while (stk_a->size != 3)
 	{
 		while (!is_chunk_sent(number_sent, start, end) && stk_a->size)
 		{
@@ -45,9 +46,10 @@ void	send_chunks(t_stk *stk_b, t_stk *stk_a, long int *sorted, int size)
 			}
 			else
 				rot_up_a(stk_a);
+		update_chunk_range(&start, &end, size, number_sent);
 		}	
-		set_chunk_rng(&start, &end, size, UPDT_RNG);
 	}
+	sort_three(stk_a);
 	free(number_sent);
 }
 
@@ -95,23 +97,41 @@ static int	get_const(int stack_size)
 	return (n);
 }
 
-static void	set_chunk_rng(int *start, int *end, int stk_size, int flag)
+void	set_chunk_range(int *start, int *end, int stk_size)
 {
 	int	offset;
 
 	offset = stk_size / get_const(stk_size);
-	if (flag == 0)
+	*start = (stk_size / 2) - offset;
+	*end = (stk_size / 2) + offset;
+	if (*end >= (stk_size - 3))
+		*end = stk_size - 4;
+}
+
+void	update_chunk_range(int *start, int *end, int stk_size, int *number_sent)
+{
+	int	i;
+
+	i = *start;
+	while (i < (stk_size / 2))
 	{
-		*start = (stk_size / 2) - offset;
-		*end = (stk_size / 2) + offset;
+		if (number_sent[i] != 1)
+			break ;
+		i++;
 	}
-	else
+	if (i == stk_size / 2)
+		*start = *start - (stk_size / get_const(stk_size));
+	i = stk_size / 2;
+	while (i < *end)
 	{
-		*start = *start - offset;
-		*end = *end + offset;
-		if (*start < 0)
-			*start = 0;
-		if (*end >= stk_size)
-			*end = stk_size - 1;
+		if (number_sent[i] != 1)
+			break ;
+		i++;
 	}
+	if (i == *end && number_sent[i] == 1)
+		*end = *end + (stk_size / get_const(stk_size));
+	if (*start < 0)
+		*start = 0;
+	if (*end >= (stk_size - 3))
+		*end = (stk_size - 4);
 }
