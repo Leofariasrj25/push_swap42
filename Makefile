@@ -8,6 +8,7 @@ SRC	=	push_swap.c \
 		parse_int.c \
 		sort_small.c \
 		send_chunks_to.c \
+		send_chunks_utils.c \
 		get_chunks_from.c \
 		merge_sort.c \
 	 	stack.c \

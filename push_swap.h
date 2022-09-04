@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:25:33 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/09/01 11:46:58 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/09/03 21:52:43 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ void		sort_three(t_stk *stk_a);
 void		sort_five(t_stk *stk_a, t_stk *stk_b);
 void		send_chunks(t_stk *stk_b, t_stk *stk_a, long int *vals, int size);
 void		get_chunks(t_stk *stk_b, t_stk *stk_a, long int *vals, int size);
+int			get_const(int stack_size);
+void		update_chunk_range(int *start, int *end, int stk_size, int *n_sent);
+void		set_chunk_range(int *start, int *end, int stk_size);
 
 // input handling
 long int	*parse_input(char **argv, int input_size, int *n_size);
