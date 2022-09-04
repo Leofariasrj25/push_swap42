@@ -6,7 +6,7 @@
 /*   By: lfarias- <leofariasrj25@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 14:28:49 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/08/31 11:32:13 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/09/03 22:07:27 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ static int	check_signal(const char *str, int *i)
 	return (signal);
 }
 
+long int	*clean_ret(long int *ret)
+{
+	free(ret);
+	return (NULL);
+}
+
 long int	*parse_int(const char *str)
 {
 	long int	res;
@@ -59,7 +65,7 @@ long int	*parse_int(const char *str)
 		i++;
 	}
 	if (str[i] != '\0' || !ret)
-		return (NULL);
+		return (clean_ret(ret));
 	*ret = res * signal;
 	return (ret);
 }
