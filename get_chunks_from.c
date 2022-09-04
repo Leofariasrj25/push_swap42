@@ -6,7 +6,7 @@
 /*   By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 12:44:05 by lfarias-          #+#    #+#             */
-/*   Updated: 2022/09/03 21:26:06 by lfarias-         ###   ########.fr       */
+/*   Updated: 2022/09/03 21:36:11 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,32 @@ static int	rot_to_biggest(t_stk *stk_b, int next_big_i);
 int			sort_stack_a(t_stk *stk_a, int *up, int *down, int next_big);
 void		place_ordered(t_stk *stk_a, t_stk *stk_b, int *up, int *down);
 int			get_value_from(t_stk *stk_b, t_stk *stk_a, int *up, int *down);
+
+int	get_value_from(t_stk *stk_b, t_stk *stk_a, int *up, int *down)
+{
+	if (stk_b->size == 0)
+		return (0);
+	if (stk_b->top_node->value < stk_a->top_node->value
+		&& (*down == 0 || stk_b->top_node->value > stk_a->bottom_node->value))
+	{
+		push_to_a(stk_b, stk_a);
+		*up = *up + 1;
+		return (1);
+	}
+	else if (*down == 0 || stk_b->top_node->value > stk_a->bottom_node->value)
+	{
+		while (*up && stk_b->top_node->value > stk_a->top_node->value)
+		{
+			rot_up_a(stk_a);
+			*up = *up - 1;
+			*down = *down + 1;
+		}
+		push_to_a(stk_b, stk_a);
+		*up = *up + 1;
+		return (1);
+	}
+	return (0);
+}
 
 void	place_ordered(t_stk *stk_a, t_stk *stk_b, int *up, int *down)
 {
@@ -49,32 +75,6 @@ int	sort_stack_a(t_stk *stk_a, int *up, int *down, int next_big)
 	return (0);
 }
 
-int	get_value_from(t_stk *stk_b, t_stk *stk_a, int *up, int *down)
-{
-	if (stk_b->size == 0)
-		return (0);
-	if (stk_b->top_node->value < stk_a->top_node->value
-		&& (*down == 0 || stk_b->top_node->value > stk_a->bottom_node->value))
-	{
-		push_to_a(stk_b, stk_a);
-		*up = *up + 1;
-		return (1);
-	}
-	else if (*down == 0 || stk_b->top_node->value > stk_a->bottom_node->value)
-	{
-		while (*up && stk_b->top_node->value > stk_a->top_node->value)
-		{
-			rot_up_a(stk_a);
-			*up = *up - 1;
-			*down = *down + 1;
-		}
-		push_to_a(stk_b, stk_a);
-		*up = *up + 1;	
-		return (1);
-	}
-	return (0);
-}
-
 void	get_chunks(t_stk *stk_b, t_stk *stk_a, long int *sorted, int size)
 {
 	int	i;
@@ -102,7 +102,7 @@ void	get_chunks(t_stk *stk_b, t_stk *stk_a, long int *sorted, int size)
 	}
 }
 
-static int rot_to_biggest(t_stk *stk_b, int next_big)
+static int	rot_to_biggest(t_stk *stk_b, int next_big)
 {
 	int	next_big_i;
 
@@ -119,7 +119,7 @@ static int rot_to_biggest(t_stk *stk_b, int next_big)
 	{
 		rot_down_b(stk_b);
 		next_big_i++;
-		return(1);
+		return (1);
 	}
 	else
 		return (0);
