@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/09/04 22:24:57 by lfarias-          #+#    #+#              #
+#    Updated: 2022/09/05 00:47:33 by lfarias-         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = push_swap
 BONUS_NAME = checker
 CC = cc
@@ -26,22 +38,20 @@ BONUS_SRC = checker_bonus.c \
 			check_dup_bonus.c \
 			merge_sort_bonus.c
 
-GNL_DIR = ./get_next_line
+GNL_DIR = ./get_next_line/
 GNL_SRC = get_next_line.c \
 		  get_next_line_utils.c
+GNL = $(addprefix $(GNL_DIR), $(GNL_SRC))
 
 SRC_OBJ = $(SRC:.c=.o)
 BONUS_OBJ = $(BONUS_SRC:.c=.o)
-GNL_OBJ = $(GNL_SRC:.c=.o)
+GNL_OBJ = $(GNL:.c=.o)
 
-LIBFT_DIR = ./libft/
+LIBFT_DIR = ./libft
 
-$(NAME):
+$(NAME): $(SRC_OBJ) 
 	make -C $(LIBFT_DIR) libft.a
-	$(CC) $(CFLAGS) -g -c -I. $(SRC)
-	$(CC) $(CFLAGS) -g -I. $(SRC_OBJ) $(LIBFT_DIR)libft.a -o $(NAME)
-	cp ./push_swap ./visualizer/
-	./visualizer/visualizer
+	$(CC) $(CFLAGS) -g -I. $(SRC_OBJ) $(LIBFT_DIR)/libft.a -o $(NAME)
 
 all: $(NAME)
 
@@ -50,19 +60,19 @@ clean:
 	rm -f $(SRC_OBJ)
 
 fclean: clean
-	rm -f $(NAME)
-	make -C $(LIBFT_DIR) fclean
+	rm -f $(LIBFT_DIR)/libft.a 
+	rm -f push_swap
 
 re: fclean $(NAME)
-	make -C $(LIBFT_DIR) re
 
-bonus:
-	make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) -c -g -I. $(BONUS_SRC) $(GNL_DIR)/get_next_line.c $(GNL_DIR)/get_next_line_utils.c
-	$(CC) $(CFLAGS) -I. $(BONUS_OBJ) $(GNL_OBJ) $(LIBFT_DIR)libft.a -o $(BONUS_NAME)		
+$(BONUS_NAME): $(BONUS_OBJ) $(GNL_OBJ)
+	make -C $(LIBFT_DIR)/ libft.a
+	$(CC) $(CFLAGS) -I. $(BONUS_OBJ) $(GNL) $(LIBFT_DIR)/libft.a -o $(BONUS_NAME)	
+
+bonus: $(BONUS_NAME)
 
 bclean:
-	rm -f $(BONUS_OBJ) $(GNL_DIR)$(GNL_OBJ)	
+	rm -f $(BONUS_OBJ) $(GNL_OBJ)	
 
 bfclean: bclean
 	rm -f $(BONUS_NAME)
